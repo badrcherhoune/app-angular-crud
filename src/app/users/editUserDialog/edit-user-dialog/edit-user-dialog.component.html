@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>{{isNewUser ? 'Ajouter' : 'Modifier'}} Utilisateur</h2>
+
+<mat-dialog-content>
+  <form #editForm="ngForm">
+    <!-- Username Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="data.user.username" name="username" 
+             required maxlength="20" #username="ngModel"
+             [class.error-field]="username.invalid && (username.dirty || username.touched)">
+      
+      <mat-hint align="end">{{username.value?.length || 0}}/20</mat-hint>
+    </mat-form-field>
+
+    <div class="error-message" 
+         *ngIf="username.invalid && (username.dirty || username.touched)">
+      <mat-icon>error_outline</mat-icon>
+      <span *ngIf="username.errors?.['required']">Le nom d'utilisateur est obligatoire</span>
+      <span *ngIf="username.errors?.['maxlength']">Maximum 20 caractères autorisés</span>
+    </div>
+
+    <!-- Age Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Âge</mat-label>
+      <input matInput type="number" [(ngModel)]="data.user.age" name="age"
+             required min="18" max="120" #age="ngModel"
+             [class.error-field]="age.invalid && (age.dirty || age.touched)">
+    </mat-form-field>
+
+    <div class="error-message" 
+         *ngIf="age.invalid && (age.dirty || age.touched)">
+      <mat-icon>error_outline</mat-icon>
+      <span *ngIf="age.errors?.['required']">L'âge est obligatoire</span>
+      <span *ngIf="age.errors?.['min'] || age.errors?.['max']">L'âge doit être entre 18 et 120 ans</span>
+    </div>
+
+    <!-- Type Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="data.user.type" name="type" required #type="ngModel"
+                  [class.error-field]="type.invalid && (type.dirty || type.touched)">
+        <mat-option *ngFor="let type of userTypes" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="error-message" 
+         *ngIf="type.invalid && (type.dirty || type.touched)">
+      <mat-icon>error_outline</mat-icon>
+      <span>Le type d'utilisateur est obligatoire</span>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" 
+          [mat-dialog-close]="data.user" 
+          [disabled]="!editForm.valid"
+          cdkFocusInitial>
+    {{isNewUser ? 'Ajouter' : 'Mettre à jour'}}
+  </button>
+</mat-dialog-actions>

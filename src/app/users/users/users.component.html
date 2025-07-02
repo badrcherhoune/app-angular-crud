@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="header">
+    <h1>Gestion des Utilisateurs</h1>
+    <button mat-raised-button color="primary" (click)="openAddDialog()" class="add-button">
+      <mat-icon>add</mat-icon> Ajouter un utilisateur
+    </button>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef class="header-cell">ID</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="id-cell">{{user.id}}</mat-cell>
+      </ng-container>
+
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Nom d'utilisateur</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="username-cell">{{user.username}}</mat-cell>
+      </ng-container>
+
+      <!-- Age Column -->
+      <ng-container matColumnDef="age">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Âge</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.age}}</mat-cell>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Type</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <span class="type-badge" [ngClass]="{
+            'admin-badge': user.type === 'Admin',
+            'user-badge': user.type === 'User',
+            'guest-badge': user.type === 'Guest'
+          }">
+            {{user.type}}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell actions-header">Actions</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="actions-cell">
+          <button mat-icon-button class="edit-btn" matTooltip="Modifier" (click)="openEditDialog(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="delete-btn" matTooltip="Supprimer" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></mat-row>
+    </mat-table>
+  </div>
+
+  <!-- Message si tableau vide -->
+  <div class="no-data" *ngIf="dataSource.data.length === 0">
+    <mat-icon>info</mat-icon>
+    <p>Aucun utilisateur à afficher</p>
+  </div>
+</div>

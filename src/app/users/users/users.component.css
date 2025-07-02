@@ -1,0 +1,196 @@
+/* Container principal */
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* En-tête */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #3f51b5;
+  margin: 0;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Conteneur du tableau */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+/* Style du tableau */
+.mat-elevation-z8 {
+  width: 100%;
+  min-width: 600px;
+  overflow: hidden;
+  border-collapse: separate;
+}
+
+/* En-tête du tableau */
+.header-row {
+  background-color: #3f51b5;
+  height: 56px;
+}
+
+.header-cell {
+  color: white !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.actions-header {
+  text-align: center !important;
+}
+
+/* Lignes du tableau */
+.row {
+  height: 52px;
+  transition: background-color 0.2s ease;
+}
+
+.row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.row:hover {
+  background-color: #f0f4ff;
+}
+
+/* Cellules */
+.mat-cell {
+  font-size: 14px;
+  color: #424242;
+  padding: 0 16px;
+  border-right: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+.mat-cell:last-child {
+  border-right: none;
+}
+
+/* Cellules spécifiques */
+.id-cell {
+  font-weight: 500;
+  color: #3f51b5;
+}
+
+.username-cell {
+  font-weight: 500;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Badges pour les types */
+.type-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+}
+
+.admin-badge {
+  background-color: #3f51b5;
+}
+
+.user-badge {
+  background-color: #4caf50;
+}
+
+.guest-badge {
+  background-color: #9e9e9e;
+}
+
+/* Boutons d'action */
+button[mat-icon-button] {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  color: #3f51b5;
+}
+
+.edit-btn:hover {
+  background-color: rgba(63, 81, 181, 0.1);
+}
+
+.delete-btn {
+  color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Message tableau vide */
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #757575;
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #bdbdbd;
+}
+
+.no-data p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mat-cell {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  
+  button[mat-icon-button] {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+}
