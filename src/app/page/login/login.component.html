@@ -1,0 +1,31 @@
+<div class="login-container">
+  <h2>Connexion</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" class="form-control" 
+             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email requis</div>
+        <div *ngIf="f['email'].errors['email']">Email invalide</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" formControlName="password" class="form-control" 
+             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+        <div *ngIf="f['password'].errors['required']">Mot de passe requis</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Connexion
+      </button>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{errorMessage}}
+    </div>
+  </form>
+</div>

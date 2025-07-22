@@ -1,0 +1,21 @@
+<div class="file-import">
+  <h2>Importation de fichier Excel</h2>
+  <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls, .csv" />
+  
+  <div class="export-buttons" *ngIf="fileData.length > 0">
+    <button (click)="logFileData()">Exporter avec colonnes vides (objets)</button>
+    <button (click)="exportExcelFromArray()">Exporter avec colonnes vides (tableau)</button>
+  </div>
+  
+  <div *ngIf="excelData.length > 0" class="data-preview">
+    <h3>Aperçu des données ({{excelData.length - 1}} lignes)</h3>
+    <table>
+      <tr *ngFor="let row of excelData.slice(0, 5)">
+        <td *ngFor="let cell of row">{{cell}}</td>
+      </tr>
+      <tr *ngIf="excelData.length > 5">
+        <td [colSpan]="excelData[0].length">...</td>
+      </tr>
+    </table>
+  </div>
+</div>

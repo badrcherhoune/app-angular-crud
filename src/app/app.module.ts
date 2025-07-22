@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users/users.component';
 import { EditUserDialogComponent } from './users/editUserDialog/edit-user-dialog/edit-user-dialog.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,12 +15,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TestComponent } from './test/test.component';
+import { LoginComponent } from './page/login/login.component';
+import { HomeComponent } from './home/home.component';
+import { JwtInterceptor } from './jwt-interceptor.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    TestComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -34,10 +41,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    JwtInterceptor
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,14 @@
+<div class="home-container">
+  <h2>Bienvenue</h2>
+  
+  <div *ngIf="currentUser" class="user-info">
+    <p>Connecté en tant que: <strong>{{currentUser.email}}</strong></p>
+    <p>Vos rôles: <span *ngFor="let role of currentUser.roles">{{role}} </span></p>
+    <button (click)="logout()" class="btn btn-logout">Déconnexion</button>
+  </div>
+
+  <div *ngIf="!currentUser" class="not-logged">
+    <p>Vous n'êtes pas connecté</p>
+    <a routerLink="/login" class="btn btn-login">Se connecter</a>
+  </div>
+</div>
