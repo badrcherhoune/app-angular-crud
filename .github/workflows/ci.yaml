@@ -1,0 +1,85 @@
+name: Angular CRUD CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # 🧱 JOB 1 - Build de l'application Angular SSR
+  build:
+    name: Build Angular App (SSR)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build Angular app
+        run: npm run build
+
+      - name: 📤 Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  # 🧪 JOB 2 - Tests unitaires
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+  # 🚀 JOB 3 - (Optionnel) Déploiement SSR
+  # Si plus tard tu veux déployer ton app sur un serveur (VPS, Render, ou autre),
+  # tu pourras décommenter et adapter ce job.
+  # deploy:
+  #   name: Deploy Angular SSR App
+  #   runs-on: ubuntu-latest
+  #   needs: [build, test]
+  #   steps:
+  #     - name: 🧾 Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: ⚙️ Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ env.NODE_VERSION }}
+
+  #     - name: 📦 Install dependencies
+  #       run: npm ci
+
+  #     - name: 🚀 Build SSR version
+  #       run: npm run build
+
+  #     - name: ▶️ Start SSR server (for preview)
+  #       run: npm run serve:ssr:angular-crud
